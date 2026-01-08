@@ -1,0 +1,68 @@
+#Initialize variables
+
+overallstudentlist = list() #Overall list of students
+studentxlist = list() #Student's info
+subjectslist = list() #List of subjects
+total = 0 #Initializes total test score
+subjfound = 0 #Checks if subject is found (option 2/3)
+persfound = 0 #Checks if student is found (option 2/3)
+
+#Adds the subjects to subject list and figures out the names of the subjects
+for i in range(1,4):
+    subj = input(f"Enter name of subject {i}: ")
+    subjectslist.append(subj)
+    
+#Adds values to the overall list
+for i in range(1,6):
+    name = input(f"Enter student {i}'s name: ")
+    studentxlist.append(name)
+    for subj in subjectslist:
+        testscore = int(input(f"Enter test score of {name} for {subj}: "))
+        studentxlist.append(testscore)
+        total += testscore
+    studentxlist.append(total)
+    studentxlist.append(total / 3)
+    overallstudentlist.append(studentxlist)
+
+#Start of program
+while True:
+    #Asks user for condition
+    condition = input("Enter 1 to print a table for all scores, enter 2 to print a specfic value, enter 3 to update a specific value, or enter 4 to end program: ")
+    #Does something based on condition number
+    if condition == "1":
+        #Creates table
+        print("Name", end = " ")
+        for subj in subjectslist:
+            print(f"{subject}", end = " ")
+        print("Total", end = " ")
+        print("Average")
+        for studentxlist in overallstudentlist:
+            for studentdata in studentxlist:
+                print(studentdata, end = " ")
+    elif condition == "2" or condition == "3":
+        #Finds student and subject in order toaccess/update them
+        personvalue = input("Type name of person whose test score you want to print/change: ")
+        for studentxlist in overallstudentlist:
+            if studentxlist[0] == personvalue:
+                persfound = "Found"
+                subjvalue = input("Type name of subject to check: ")
+                for i in range(5):
+                    if subjectslist[i] == subjvalue:
+                        if condition == "2":
+                            print(f"Found: {studentxlist[i+1]}")
+                            subjfound = "Found"
+                        if condition == "3":
+                            newvalue = int(input("Enter new score: "))
+                            studentxlist[i+1] = newvalue
+                            print("Score updated.")
+                            subjfound = "Found"
+                if subjfound != "Found":
+                    print("Error: Subject not found")
+        if persfound != "Found":
+            print("Error: Student not found")
+    elif condition == "4":
+        #Ends program
+        break
+    else:
+        #Restarts the program if input is different
+        print("Invalid input. Type again.")
